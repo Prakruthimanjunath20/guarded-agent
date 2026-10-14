@@ -1,0 +1,35 @@
+[project]
+name = "guarded-agent"
+version = "0.1.0"
+description = "A tool-using Claude agent with guardrails: typed tools, approval for side effects, budgets, prompt-injection flags and replayable traces."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Prakruthi Manjunath" }]
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.7"]
+
+[project.optional-dependencies]
+llm = ["anthropic>=0.40"]
+
+[project.scripts]
+guarded-agent = "guarded_agent.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/guarded_agent"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
